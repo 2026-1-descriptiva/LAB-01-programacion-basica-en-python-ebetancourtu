@@ -5,7 +5,7 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
-
+import csv
 def pregunta_08():
     """
     Genere una lista de tuplas, donde el primer elemento de cada tupla
@@ -27,3 +27,13 @@ def pregunta_08():
      (9, ['A', 'B', 'C', 'E'])]
 
     """
+    with open("./files/input/data.csv", "r") as f:
+        reader = csv.reader(f, delimiter="\t")
+        datos = {}
+        for row in reader:
+            numero = int(row[1])
+            letra = row[0]
+            if numero not in datos:
+                datos[numero] = set()
+            datos[numero].add(letra)
+    return [(num, sorted(letras)) for num, letras in sorted(datos.items())]

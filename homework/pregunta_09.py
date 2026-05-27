@@ -5,7 +5,7 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
-
+import csv
 def pregunta_09():
     """
     Retorne un diccionario que contenga la cantidad de registros en que
@@ -24,3 +24,12 @@ def pregunta_09():
      'jjj': 18}}
 
     """
+    with open("./files/input/data.csv", "r") as f:
+        reader = csv.reader(f, delimiter="\t")
+        conteo = {}
+        for row in reader:
+            pares = row[4].split(",")  # ["jjj:12", "bbb:3", ...]
+            for par in pares:
+                clave = par.split(":")[0]
+                conteo[clave] = conteo.get(clave, 0) + 1
+    return conteo

@@ -5,7 +5,7 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
-
+import csv
 def pregunta_03():
     """
     Retorne la suma de la columna 2 por cada letra de la primera columna como
@@ -15,3 +15,10 @@ def pregunta_03():
     [('A', 53), ('B', 36), ('C', 27), ('D', 31), ('E', 67)]
 
     """
+    with open("./files/input/data.csv", "r") as f:
+        reader = csv.reader(f, delimiter="\t")
+        sumas = {}
+        for row in reader:
+            letra = row[0]
+            sumas[letra] = sumas.get(letra, 0) + int(row[1])
+    return sorted(sumas.items())

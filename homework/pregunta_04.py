@@ -6,6 +6,7 @@ utilizar pandas, numpy o scipy.
 """
 
 
+import csv
 def pregunta_04():
     """
     La columna 3 contiene una fecha en formato `YYYY-MM-DD`. Retorne la
@@ -26,3 +27,10 @@ def pregunta_04():
      ('12', 3)]
 
     """
+    with open("./files/input/data.csv", "r") as f:
+        reader = csv.reader(f, delimiter="\t")
+        conteo = {}
+        for row in reader:
+            mes = row[2].split("-")[1]  # "1999-02-28" -> "02"
+            conteo[mes] = conteo.get(mes, 0) + 1
+    return sorted(conteo.items())
